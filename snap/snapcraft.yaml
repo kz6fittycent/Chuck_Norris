@@ -1,0 +1,35 @@
+name: chucknorris
+adopt-info: chucknorris
+summary: Chuck Norris in your terminal!
+description: |
+  Increase your smile reading these awesome Chuck Norris jokes from your terminal! 
+  Disclaimer: Chuck Norris doesn't joke, he'll just tell you when to laugh.
+
+license: MIT
+
+base: core18
+grade: stable 
+confinement: strict
+
+apps:
+  chucknorris:
+    command: chucknorris
+    environment:
+      LC_ALL: C.UTF-8
+
+parts: 
+  chuck:
+    source: https://github.com/kz6fittycent/Chuck_Norris
+    source-type: git
+    plugin: python
+    python-version: python3
+
+    override-pull: |
+      snapcraftctl pull
+      snapcraftctl set-version "$(git describe --tags | sed 's/^v//' | cut -d "-" -f1)"  
+      
+    build-packages:
+      - python3
+      
+    stage-packages:
+      - python3
