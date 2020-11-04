@@ -1,6 +1,5 @@
 name: chucknorris
 adopt-info: chucknorris
-#version: "1.0"
 summary: Chuck Norris in your terminal!
 description: |
   Increase your smile reading these awesome Chuck Norris jokes from your terminal! 
@@ -27,7 +26,7 @@ parts:
 
     override-pull: |
       snapcraftctl pull
-      snapcraftctl set-version "$(git describe --tags | sed 's/^v//')"  
+      snapcraftctl set-version "$(git describe --tags | sed 's/^v//' | cut -d "-" -f2)"  
       
     build-packages:
       - python3
