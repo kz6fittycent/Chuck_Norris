@@ -7,13 +7,20 @@ description: |
 
 license: MIT
 
-base: core18
+base: core20
 grade: stable 
 confinement: strict
 
+architectures:
+  - build-on: amd64
+  - build-on: arm64
+  - build-on: armhf
+  - build-on: ppc64el
+  - build-on: s390x
+  
 apps:
   chucknorris:
-    command: chucknorris
+    command: bin/chucknorris
     environment:
       LC_ALL: C.UTF-8
 
@@ -22,14 +29,7 @@ parts:
     source: https://github.com/kz6fittycent/Chuck_Norris
     source-type: git
     plugin: python
-    python-version: python3
 
     override-pull: |
       snapcraftctl pull
       snapcraftctl set-version "$(git describe --tags | sed 's/^v//' | cut -d "-" -f1)"  
-      
-    build-packages:
-      - python3
-      
-    stage-packages:
-      - python3
